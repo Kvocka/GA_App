@@ -1,20 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
+import { useBarcode } from './api';
 
 export default function App() {
+  const data = useBarcode('0722252165244');
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View className="flex-1 items-center justify-center bg-purple-900">
+      <Text className="text-lg text-purple-100">{data?.data.product?.nutriments?.['energy-kcal_100g']} kCal/100g</Text>
       <StatusBar style="auto" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
