@@ -8,7 +8,7 @@ export default function App() {
   return (
     <View className="flex-1 items-center justify-center bg-purple-900">
       <Text className="text-lg text-purple-100">{data?.data.product?.nutriments?.['energy-kcal_100g']} kCal/100g</Text>
-      <StatusBar style="auto" />
+      <StatusBar style="inverted" />
     </View>
   );
 }
