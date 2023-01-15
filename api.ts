@@ -13,16 +13,16 @@ fetcher.configure({
 
 export const getByBarcode = fetcher.path('/api/v2/product/{barcode}').method('get').create();
 
-export const useApi = <T extends (...args: any[]) => Promise<any>>(apiFunc: T) => {
+export const useApi = <T extends (...args: any[]) => Promise<any>>(apiFunc: T, key: string) => {
     const [data, setData] = useState<ReturnTypeFromApiFunc<T> | null>(null);
 
     useEffect(() => {
         apiFunc().then((response) => {
             setData(response);
         });
-    }, [apiFunc]);
+    }, [key]);
 
     return data;
 }
 
-export const useBarcode = (barcode: string) => useApi(() => getByBarcode({ barcode }));
+export const useBarcode = (barcode: string) => useApi(() => getByBarcode({ barcode }), barcode);
