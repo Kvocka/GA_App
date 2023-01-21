@@ -16,11 +16,8 @@ export default function Scanner() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [torchOn, setTorchOn] = useState(false);
   const [scannedText, setScannedText] = useState<string | null>(null);
-  const thing = useBarcode(scannedText || "");
-  const data = useBarcode("3017620425035");
-  const [hasScanned, setHasScanned] = useState(false);
-
-  useEffect(() => {
+  
+  const thing = useBarcode(scannedText || "");  useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
@@ -34,54 +31,62 @@ export default function Scanner() {
     data,
   }: BarCodeEvent) => {
     setScannedText(data);
-    if (data) {
-      setHasScanned(true);
-    }
-    console.log(data);
-  };
+  }
+
+  const validProd = thing?.data.status != 0;
 
   return (
     <View tw="w-screen h-96">
       <Text tw="text-lg text-purple-100">
-        {data?.data.product?.nutriments?.["energy-kcal_100g"]} kCal/100g
-      </Text>
-      {!hasScanned ? (
-        <>
+        {thing?.data.product?.nutriments?.["energy-kcal_100g"]} kCal/100g
+      </Text>        
+      {
+        !thing || thing?.data.status == 0 ? (
+          <>
           <Camera
-            style={StyleSheet.absoluteFillObject}
-            // useCamera2Api={true}
-            flashMode={torchOn ? FlashMode.torch : FlashMode.off}
-            onBarCodeScanned={handleBarCodeScanned}
-            barCodeScannerSettings={{
-              barCodeTypes: [
-                BarCodeType.ean8,
-                BarCodeType.ean13,
-                // BarCodeType.upc_a,
-                // BarCodeType.upc_e,
-                // BarCodeType.upc_ean,
-              ],
-            }}
-          />
-          <Pressable
-            tw="absolute top-0 right-0 p-4"
-            onPress={() => setTorchOn(!torchOn)}
-          >
-            <Text>🔦</Text>
-          </Pressable>
+          style={StyleSheet.absoluteFillObject}
+          // useCamera2Api={true}
+          flashMode={torchOn ? FlashMode.torch : FlashMode.off}
+          onBarCodeScanned={handleBarCodeScanned}
+          barCodeScannerSettings={{
+            barCodeTypes: [
+              BarCodeType.ean8,
+              BarCodeType.ean13,
+              // BarCodeType.upc_a,
+              // BarCodeType.upc_e,
+              // BarCodeType.upc_ean,
+            ],
+          }}
+        />
+      { !validProd && scannedText != null? (
+        <Text>Invalid product</Text>
+      ): (
+        <>Vim 😍😍😍😍</>
+      )}
+
+        <Pressable
+          tw="absolute top-0 right-0 p-4"
+          onPress={() => setTorchOn(!torchOn)}
+        >
+          <Text>:flashlight:</Text>
+        </Pressable>
         </>
-      ) : (
-        <View tw="flex flex-col">
-          <Pressable
-            tw="absolute top-0 right-0 p-4"
-            onPress={() => setHasScanned(false)}
-          >
-            <Text>New product</Text>
-          </Pressable>
+        ):
+        (
+          <>
           <Text tw="bg-white opacity-50 text-lg">
             Produkt: {thing?.data.product?.product_name}
-          </Text>
-        </View>
-      )}
+          </Text> 
+          <Pressable
+          tw="absolute top-0 right-0 p-4"
+          onPress={() => setScannedText(null)}
+        >
+          <Text>New product</Text>
+        </Pressable>
+        </>
+        )
+      }
+      
     </View>
   );
 }
