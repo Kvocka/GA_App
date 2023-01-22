@@ -1,0 +1,6 @@
+{
+    "tailwindCSS.classAttributes": [
+        "className",
+        "tw"
+    ]
+}
