@@ -8,7 +8,7 @@ export type ReturnTypeFromApiFunc<T> = T extends (...args: any[]) => Promise<inf
 const fetcher = Fetcher.for<paths>()
 
 fetcher.configure({
-  baseUrl: 'https://world.openfoodfacts.org',
+    baseUrl: 'https://world.openfoodfacts.org',
 });
 
 export const getByBarcode = fetcher.path('/api/v2/product/{barcode}').method('get').create();
@@ -19,6 +19,8 @@ export const useApi = <T extends (...args: any[]) => Promise<any>>(apiFunc: T, k
     useEffect(() => {
         apiFunc().then((response) => {
             setData(response);
+        }).catch((error) => {
+            setData(error);
         });
     }, [key]);
 

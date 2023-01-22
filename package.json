@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@expo/ngrok": "^2.5.0",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-brands-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-native-fontawesome": "^0.3.0",
     "expo": "~47.0.12",
     "expo-barcode-scanner": "~12.1.0",
     "expo-camera": "~13.1.0",
