@@ -4,6 +4,7 @@ import { useBarcode } from './api';
 import Scanner from './src/components/Scanner';
 import React from 'react';
 import Home from './src/components/Home';
+import 'react-native-gesture-handler';
 
 export default function App() {
   

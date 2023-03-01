@@ -5,7 +5,7 @@
     - [x] Kaloriantal på skannade produkter
     - [x] Namn på skannade produkter
     - [x] Rensa listan
-    - [ ] Ev. kunna ta bort saker (kanske swipe)
+    - [x] Ev. kunna ta bort saker (kanske swipe)
 
 ## Steg 2:
 - [ ] "Målitder"

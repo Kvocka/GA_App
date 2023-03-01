@@ -20,7 +20,7 @@ export const useItemList = create<ItemListState>()(
             (set) => ({
                 items: [],
                 add: (item: Item) => set((state) => ({ items: [...state.items, item] })),
-                remove: (item: Item) => set((state) => ({ items: state.items.filter((i) => i.name !== item.name) })),
+                remove: (item: Item) => set((state) => ({ items: state.items.filter((i) => i !== item) })),
                 clear: () => set(() => ({ items: [] })),
             }),
             {
